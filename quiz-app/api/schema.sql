@@ -342,3 +342,122 @@ ALTER TABLE ONLY public.user_responses
 -- PostgreSQL database dump complete
 --
 
+insert into users (username,email,password,role,created_at) values 
+('Alice Johnson', 'alice@example.com', 'password123', 'admin', CURRENT_TIMESTAMP),
+('Bob Smith', 'bob@example.com', 'password456', 'player', CURRENT_TIMESTAMP),
+('Charlie Brown', 'charlie@example.com', 'password789', 'player', CURRENT_TIMESTAMP),
+('Diana Prince', 'diana@example.com', 'password101', 'admin', CURRENT_TIMESTAMP),
+('Eve Adams', 'eve@example.com', 'password202', 'player', CURRENT_TIMESTAMP);
+
+insert into quizzes (title,category,difficulty,created_by,created_at)values
+('General Knowledge Quiz', 'General Knowledge', 'medium', 1, CURRENT_TIMESTAMP),
+('Science Quiz', 'Science', 'hard', 2, CURRENT_TIMESTAMP),
+('History Quiz', 'History', 'easy', 3, CURRENT_TIMESTAMP);
+
+insert into questions (quiz_id,question_text,created_at) VALUES
+(1, 'What is the capital of France?', CURRENT_TIMESTAMP),
+(1, 'Who wrote "To Kill a Mockingbird"?', CURRENT_TIMESTAMP),
+(1, 'What is the largest planet in our solar system?', CURRENT_TIMESTAMP),
+(1, 'What year did the Titanic sink?', CURRENT_TIMESTAMP),
+(1, 'Who painted the Mona Lisa?', CURRENT_TIMESTAMP),
+(2, 'What is the chemical symbol for water?', CURRENT_TIMESTAMP),
+(2, 'Who developed the theory of relativity?', CURRENT_TIMESTAMP),
+(2, 'What is the powerhouse of the cell?', CURRENT_TIMESTAMP),
+(2, 'What planet is known as the Red Planet?', CURRENT_TIMESTAMP),
+(2, 'What is the speed of light?', CURRENT_TIMESTAMP),
+(3, 'Who was the first President of the United States?', CURRENT_TIMESTAMP),
+(3, 'In what year did World War II end?', CURRENT_TIMESTAMP),
+(3, 'Who was the first man to walk on the moon?', CURRENT_TIMESTAMP),
+(3, 'What ancient civilization built the pyramids?', CURRENT_TIMESTAMP),
+(3, 'Who was known as the Maid of Orleans?', CURRENT_TIMESTAMP);
+
+INSERT INTO options (question_id, option_text, is_correct) VALUES
+-- Options for question 1
+(1, 'Paris', true),
+(1, 'London', false),
+(1, 'Berlin', false),
+(1, 'Madrid', false),
+
+-- Options for question 2
+(2, 'Harper Lee', true),
+(2, 'Mark Twain', false),
+(2, 'Ernest Hemingway', false),
+(2, 'F. Scott Fitzgerald', false),
+
+-- Options for question 3
+(3, 'Jupiter', true),
+(3, 'Saturn', false),
+(3, 'Earth', false),
+(3, 'Mars', false),
+
+-- Options for question 4
+(4, '1912', true),
+(4, '1905', false),
+(4, '1920', false),
+(4, '1898', false),
+
+-- Options for question 5
+(5, 'Leonardo da Vinci', true),
+(5, 'Vincent van Gogh', false),
+(5, 'Pablo Picasso', false),
+(5, 'Claude Monet', false),
+
+-- Options for question 6
+(6, 'H2O', true),
+(6, 'CO2', false),
+(6, 'O2', false),
+(6, 'N2', false),
+
+-- Options for question 7
+(7, 'Albert Einstein', true),
+(7, 'Isaac Newton', false),
+(7, 'Galileo Galilei', false),
+(7, 'Nikola Tesla', false),
+
+-- Options for question 8
+(8, 'Mitochondria', true),
+(8, 'Nucleus', false),
+(8, 'Ribosome', false),
+(8, 'Chloroplast', false),
+
+-- Options for question 9
+(9, 'Mars', true),
+(9, 'Venus', false),
+(9, 'Jupiter', false),
+(9, 'Saturn', false),
+
+-- Options for question 10
+(10, '299,792,458 m/s', true),
+(10, '150,000,000 m/s', false),
+(10, '1,000,000 m/s', false),
+(10, '300,000,000 m/s', false),
+
+-- Options for question 11
+(11, 'George Washington', true),
+(11, 'Thomas Jefferson', false),
+(11, 'Abraham Lincoln', false),
+(11, 'John Adams', false),
+
+-- Options for question 12
+(12, '1945', true),
+(12, '1939', false),
+(12, '1918', false),
+(12, '1965', false),
+
+-- Options for question 13
+(13, 'Neil Armstrong', true),
+(13, 'Buzz Aldrin', false),
+(13, 'Yuri Gagarin', false),
+(13, 'Michael Collins', false),
+
+-- Options for question 14
+(14, 'Egyptians', true),
+(14, 'Romans', false),
+(14, 'Greeks', false),
+(14, 'Mayans', false),
+
+-- Options for question 15
+(15, 'Joan of Arc', true),
+(15, 'Marie Curie', false),
+(15, 'Queen Elizabeth I', false),
+(15, 'Catherine the Great', false);
