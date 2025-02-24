@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 
-dotenv.config(); // Load environment variable
+dotenv.config();
 const knexConfig = {
   development: {
     client: process.env.DB_CLIENT,
