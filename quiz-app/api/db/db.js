@@ -3,6 +3,9 @@ import dotenv from "dotenv";
 
 dotenv.config(); // Load environment variables
 
+//db is the knex instance
+//knex - a query builder for sql databases
+
 const db = knex({
   client: process.env.DB_CLIENT || "pg",
   connection: {

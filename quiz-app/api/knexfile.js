@@ -1,3 +1,5 @@
+// A configuration file for knex where database connections are defined
+
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -21,3 +23,7 @@ const knexConfig = {
 };
 
 export default knexConfig;
+
+//migrations for database schema management, adding columns, contraints,tables etc.,
+//seeds - for inserting values by javascript instead of using SQL queries.
+// knexConfig is imported in migrations and seeds file if we are using
