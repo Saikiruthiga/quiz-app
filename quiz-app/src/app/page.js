@@ -6,11 +6,26 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  Button,
 } from "@mui/material";
 import { useState } from "react";
 export default function Home() {
   const [category, setCategory] = useState("");
   const [difficulty, setDifficulty] = useState("");
+  const [questions, setQuestions] = useState([]);
+
+  const fetchQuestions = () => {
+    if (!category || !difficulty) {
+      alert("Please select both difficulty and category");
+      return;
+    }
+    fetch(
+      `http://localhost:5000/api/questions?difficulty=${difficulty}&category=${category}`
+    )
+      .then((response) => response.json())
+      .then((data) => setQuestions(data))
+      .catch((error) => console.error("Error fetching questions :", error));
+  };
   return (
     <Box
       sx={{
@@ -29,29 +44,52 @@ export default function Home() {
       >
         Quiz App
       </Typography>
-      <FormControl
-        sx={{ minWidth: 200, backgroundColor: "white", borderRadius: 1 }}
-      >
-        <InputLabel>Category</InputLabel>
-        <Select value={category} onChange={(e) => setCategory(e.target.value)}>
-          <MenuItem value="History">History</MenuItem>
-          <MenuItem value="Science">Science</MenuItem>
-          <MenuItem value="General Knowledge">General Knowledge</MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl
-        sx={{ minWidth: 200, backgroundColor: "white", borderRadius: 1 }}
-      >
-        <InputLabel>Difficulty</InputLabel>
-        <Select
-          value={difficulty}
-          onChange={(e) => setDifficulty(e.target.value)}
+      <Box sx={{ margin: "20px", paddingLeft: "20px" }}>
+        <FormControl
+          sx={{
+            minWidth: 150,
+            backgroundColor: "white",
+            borderRadius: 1,
+            marginRight: "20px",
+          }}
         >
-          <MenuItem value="Easy">Easy</MenuItem>
-          <MenuItem value="Medium">Medium</MenuItem>
-          <MenuItem value="Hard">Hard</MenuItem>
-        </Select>
-      </FormControl>
+          <InputLabel>Category</InputLabel>
+          <Select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            <MenuItem value="History">History</MenuItem>
+            <MenuItem value="Science">Science</MenuItem>
+            <MenuItem value="General Knowledge">General Knowledge</MenuItem>
+          </Select>
+        </FormControl>
+        <FormControl
+          sx={{
+            minWidth: 150,
+            backgroundColor: "white",
+            borderRadius: 1,
+            marginLeft: "20px",
+          }}
+        >
+          <InputLabel>Difficulty</InputLabel>
+          <Select
+            value={difficulty}
+            onChange={(e) => setDifficulty(e.target.value)}
+          >
+            <MenuItem value="easy">easy</MenuItem>
+            <MenuItem value="Medium">Medium</MenuItem>
+            <MenuItem value="Hard">Hard</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={fetchQuestions}
+        sx={{ marginTop: "15px" }}
+      >
+        Get Questions
+      </Button>
     </Box>
   );
 }

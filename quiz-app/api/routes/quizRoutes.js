@@ -119,4 +119,27 @@ router.post("/questions/:id", async (req, res) => {
   }
 });
 
+router.get("/questions", async (req, res) => {
+  try {
+    const { difficulty, category } = req.query;
+    if (!difficulty || !category) {
+      return res.status(400).json({ error: "Missing parameters" });
+    }
+    const quizzes = await db("quizzes")
+      .select("id")
+      .where({ difficulty, category });
+    if (quizzes.length === 0) {
+      return res.json({ message: "No quizzes found for given criteria" });
+    }
+    const quizId = quizzes.map((quiz) => quiz.id);
+    const questions = await db("questions")
+      .select("id", "quiz_id", "question_text")
+      .whereIn("quiz_id", quizId);
+    res.json(questions);
+  } catch (error) {
+    console.error("Error fetching questions : ", error);
+    res.status(500).json({ error: "failed to fetch questions" });
+  }
+});
+
 export default router;
