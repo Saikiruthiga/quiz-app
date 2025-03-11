@@ -6,15 +6,14 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  Button,
 } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 export default function Home() {
   const [category, setCategory] = useState("");
   const [difficulty, setDifficulty] = useState("");
   const [questions, setQuestions] = useState([]);
 
-  const fetchQuestions = () => {
+  const fetchQuestions = useCallback(() => {
     if (!category || !difficulty) {
       alert("Please select both difficulty and category");
       return;
@@ -25,7 +24,14 @@ export default function Home() {
       .then((response) => response.json())
       .then((data) => setQuestions(data))
       .catch((error) => console.error("Error fetching questions :", error));
-  };
+  }, [category, difficulty]);
+
+  useEffect(() => {
+    if (category && difficulty) {
+      fetchQuestions();
+    }
+  }, [category, difficulty, fetchQuestions]);
+
   return (
     <Box
       sx={{
@@ -77,19 +83,24 @@ export default function Home() {
             onChange={(e) => setDifficulty(e.target.value)}
           >
             <MenuItem value="easy">easy</MenuItem>
-            <MenuItem value="Medium">Medium</MenuItem>
-            <MenuItem value="Hard">Hard</MenuItem>
+            <MenuItem value="medium">medium</MenuItem>
+            <MenuItem value="hard">hard</MenuItem>
           </Select>
         </FormControl>
       </Box>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={fetchQuestions}
-        sx={{ marginTop: "15px" }}
-      >
-        Get Questions
-      </Button>
+      {category && difficulty ? (
+        <Box>
+          {questions.length > 0 ? (
+            questions.map((question) => (
+              <Box key={question.id}>
+                <Typography>{question.question_text}</Typography>
+              </Box>
+            ))
+          ) : (
+            <Typography>No questions available</Typography>
+          )}
+        </Box>
+      ) : null}
     </Box>
   );
 }
